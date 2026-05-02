@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:student_management_app/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +13,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp( debugShowCheckedModeBanner: false,
       title:"The Easy Learn Contact App" ,
       theme: ThemeData(),
-      home: SplashScreen(),
     );
   }
 }
