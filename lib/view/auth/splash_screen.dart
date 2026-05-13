@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:student_management_app/app_color.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:student_management_app/utils/app_color.dart';
 import 'register.dart';
+import '../home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<Offset> _animation;
+  late Animation<Offset> _slideAnimation;
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(seconds: 2),
     );
 
-    _animation = Tween<Offset>(
+    _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
@@ -34,7 +35,8 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     Timer(const Duration(seconds: 4), () {
-      Get.offAll(() => const Register());
+      Get.offAll(() => const RegisterScreen());
+      // Get.offAll(() => const HomeScreen());
     });
   }
 
@@ -47,21 +49,37 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.primaryColor,
+      backgroundColor: Colors.white,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: SlideTransition(
-            position: _animation,
+            position: _slideAnimation,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset("assets/images/logo.png", height: 200, width: 300),
-                const SizedBox(height: 20),
-                const Text(
-                  "Student Management App",
-                  style: TextStyle(fontWeight: FontWeight.w800 , color: Colors.black),
+                Image.asset(
+                  "assets/images/app_icon.png",
+                  height: 200,
+                  width: 300,
                 ),
+                const SizedBox(height: 10),
+                Text(
+                  textAlign: TextAlign.center,
+                  "Student Manager",
+                  style: GoogleFonts.poppins(color: AppColors.primary, fontWeight: FontWeight.bold,fontSize: 25),
+                ),
+                const SizedBox(height: 10),
+
+                Text(
+                  "Empowering Students Through Quality Education",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    color: Colors.grey.shade600,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                    letterSpacing: 0.5,
+                  ),),
               ],
             ),
           ),
